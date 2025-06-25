@@ -1,0 +1,21 @@
+﻿<Window x:Class="PhungDucTiepWPF.Views.CustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Customer Dashboard" Height="350" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="txtGreeting" FontWeight="Bold" FontSize="18" Grid.Row="0" Margin="0,0,0,20"/>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" >
+            <Button Content="Edit Profile" Margin="0,5" Command="{Binding EditProfileCommand}"/>
+            <Button Content="View Orders" Margin="0,5" Click="ViewOrders_Click"/>
+            <Button Content="Manage Orders" Margin="0,5" Click="ManageRooms_Click"/>
+            <Button Content="Logout" Margin="0,20,0,0" Click="Logout_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
