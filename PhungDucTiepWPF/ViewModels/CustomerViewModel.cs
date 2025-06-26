@@ -1,8 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using BusinessObjects;
 using PhungDucTiepWPF.Commands;
-using PhungDucTiepWPF.Views;
 using Services.Implementation;
 
 namespace PhungDucTiepWPF.ViewModels
@@ -13,35 +11,47 @@ namespace PhungDucTiepWPF.ViewModels
         public Customer Customer { get; set; }
 
         public ICommand EditProfileCommand { get; }
+        public ICommand ViewOrdersCommand { get; }
+        public ICommand LogoutCommand { get; }
+
+        public event Action RequestLogout;
+        public event Action<Customer> RequestEditProfile;
+        public event Action<int> RequestOpenOrders;
 
         public CustomerViewModel(Customer customer)
         {
             Customer = customer;
             _customerService = new CustomerService();
-            EditProfileCommand = new RelayCommand(EditProfile);
+
+            EditProfileCommand = new RelayCommand(OnEditProfile);
+            ViewOrdersCommand = new RelayCommand(OnViewOrders);
+            LogoutCommand = new RelayCommand(OnLogout);
         }
 
-        private void EditProfile()
+        private void OnEditProfile()
         {
-            var editWindow = new EditCustomerWindow(Customer)
-            {
-                Owner = Application.Current.MainWindow
-            };
+            RequestEditProfile?.Invoke(Customer);
+        }
 
-            if (editWindow.ShowDialog() == true)
-            {
-                var updated = editWindow.Customer;
+        private void OnViewOrders()
+        {
+            RequestOpenOrders?.Invoke(Customer.CustomerID);
+        }
 
-                Customer.CompanyName = updated.CompanyName;
-                Customer.ContactName = updated.ContactName;
-                Customer.ContactTitle = updated.ContactTitle;
-                Customer.Address = updated.Address;
-                Customer.Phone = updated.Phone;
+        private void OnLogout()
+        {
+            RequestLogout?.Invoke();
+        }
 
-                _customerService.UpdateCustomer(Customer);
+        public void UpdateProfile(Customer updated)
+        {
+            Customer.CompanyName = updated.CompanyName;
+            Customer.ContactName = updated.ContactName;
+            Customer.ContactTitle = updated.ContactTitle;
+            Customer.Address = updated.Address;
+            Customer.Phone = updated.Phone;
 
-                MessageBox.Show("Profile updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            _customerService.UpdateCustomer(Customer);
         }
     }
 }

@@ -35,7 +35,7 @@
                     Height="40"
                     FontSize="14"/>
 
-            <Button Content="Create/View Orders"
+            <Button Content="Orders Processing"
                     Command="{Binding ManageOrdersCommand}"
                     Margin="0,5"
                     Height="40"

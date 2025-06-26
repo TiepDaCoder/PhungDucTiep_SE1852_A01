@@ -17,5 +17,9 @@ namespace Repositories.Implementation
         {
             return _employeeDAO.GetEmployeeAccount(username, password);
         }
+        public List<Employee> GetAllEmployees()
+        {
+            return _employeeDAO.GetAllEmployees();
+        }
     }
 }

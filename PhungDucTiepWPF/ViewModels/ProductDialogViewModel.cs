@@ -13,7 +13,6 @@ namespace PhungDucTiepWPF.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        // Sự kiện dùng để đóng dialog
         public event Action? RequestCloseWithSuccess;
         public event Action? RequestClose;
 

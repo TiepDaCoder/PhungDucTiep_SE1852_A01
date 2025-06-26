@@ -68,7 +68,7 @@ namespace PhungDucTiepWPF.ViewModels
 
         private void DeleteCustomer()
         {
-            var result = MessageBox.Show($"Xoá khách hàng {SelectedCustomer.ContactName}?", "Xác nhận", MessageBoxButton.YesNo);
+            var result = MessageBox.Show($"Delete Customer {SelectedCustomer.ContactName}?", "Confirm", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
                 _customerService.Delete(SelectedCustomer.CustomerID);

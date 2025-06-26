@@ -17,5 +17,9 @@ namespace Services.Implementation
         {
             return _employeeRepository.GetEmployeeAccount(username, password);
         }
+        public List<Employee> GetAll()
+        {
+            return _employeeRepository.GetAllEmployees();
+        }
     }
 }

@@ -6,34 +6,43 @@ namespace PhungDucTiepWPF.Views
 {
     public partial class CustomerWindow : Window
     {
-        private Customer _currentCustomer;
+        private readonly CustomerViewModel _viewModel;
 
         public CustomerWindow(Customer customer)
         {
             InitializeComponent();
-            _currentCustomer = customer;
-            this.DataContext = new CustomerViewModel(_currentCustomer);
-            txtGreeting.Text = $"Welcome, {_currentCustomer.ContactName}!";
-        }
+            txtGreeting.Text = $"Welcome, {customer.ContactName}!";
 
-        private void ViewOrders_Click(object sender, RoutedEventArgs e)
-        {
-            var ordersWindow = new OrderHistoryWindow(_currentCustomer.CustomerID);
-            ordersWindow.Owner = this;
-            ordersWindow.ShowDialog();
-        }
+            _viewModel = new CustomerViewModel(customer);
+            _viewModel.RequestOpenOrders += customerId =>
+            {
+                var ordersWindow = new OrderHistoryWindow(customerId)
+                {
+                    Owner = this
+                };
+                ordersWindow.ShowDialog();
+            };
+            _viewModel.RequestLogout += () =>
+            {
+                var login = new Login();
+                login.Show();
+                this.Close();
+            };
+            _viewModel.RequestEditProfile += cus =>
+            {
+                var editWindow = new EditCustomerWindow(cus)
+                {
+                    Owner = this
+                };
 
-        private void ManageRooms_Click(object sender, RoutedEventArgs e)
-        {
-            //var roomWindow = new RoomManagementWindow();
-            //roomWindow.ShowDialog();
-        }
+                if (editWindow.ShowDialog() == true)
+                {
+                    _viewModel.UpdateProfile(editWindow.Customer);
+                    MessageBox.Show("Profile updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            };
 
-        private void Logout_Click(object sender, RoutedEventArgs e)
-        {
-            var loginWindow = new Login();
-            loginWindow.Show();
-            this.Close();
+            DataContext = _viewModel;
         }
     }
 }
