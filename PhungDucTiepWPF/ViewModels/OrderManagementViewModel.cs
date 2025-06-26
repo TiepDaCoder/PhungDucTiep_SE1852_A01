@@ -92,8 +92,6 @@ namespace PhungDucTiepWPF.ViewModels
                 MessageBox.Show("Order added successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
-
         private void DeleteOrder()
         {
             if (SelectedOrder == null) return;

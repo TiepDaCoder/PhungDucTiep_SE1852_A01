@@ -14,7 +14,6 @@ namespace PhungDucTiepWPF.ViewModels
         public ICommand ReportsCommand { get; }
         public ICommand LogoutCommand { get; }
 
-        // Events để thông báo cho View
         public event Action? RequestOpenCustomers;
         public event Action? RequestOpenProducts;
         public event Action? RequestOpenOrders;

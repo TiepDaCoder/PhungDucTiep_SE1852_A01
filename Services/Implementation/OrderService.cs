@@ -29,7 +29,7 @@ namespace Services.Implementation
 
         public void DeleteOrder(int orderId)
         {
-            _orderDetailRepository.DeleteDetailsByOrderId(orderId); // delete order details first
+            _orderDetailRepository.DeleteDetailsByOrderId(orderId); //xoá order detail trước
             _orderRepository.Delete(orderId);
         }
 
