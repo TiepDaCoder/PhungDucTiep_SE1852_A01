@@ -16,7 +16,7 @@ namespace PhungDucTiepWPF.Views
             _viewModel.RequestOpenCustomers += () => new CustomerManagementWindow().ShowDialog();
             _viewModel.RequestOpenProducts += () => new ProductManagementWindow().ShowDialog();
             _viewModel.RequestOpenOrders += () => new OrderManagementWindow().ShowDialog();
-            _viewModel.RequestOpenReports += () => MessageBox.Show("Reports window placeholder.");
+            _viewModel.RequestOpenReports += () => new ReportWindow().ShowDialog();
             _viewModel.RequestLogout += () => { new Login().Show(); this.Close(); };
 
             DataContext = _viewModel;

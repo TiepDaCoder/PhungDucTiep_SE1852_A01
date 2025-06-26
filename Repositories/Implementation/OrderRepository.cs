@@ -37,5 +37,6 @@ namespace Repositories.Implementation
 
             return query.ToList();
         }
+        public List<OrderReportModel> GetReportByMonth() => _orderDAO.GetReportByMonth();
     }
 }

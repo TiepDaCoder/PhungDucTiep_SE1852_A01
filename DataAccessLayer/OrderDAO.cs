@@ -54,5 +54,33 @@ namespace DataAccessLayer
                 (!customerId.HasValue || o.CustomerID == customerId) &&
                 (!employeeId.HasValue || o.EmployeeID == employeeId)).ToList();
         }
+        public List<OrderReportModel> GetReportByMonth()
+        {
+            var details = new OrderDetailDAO().GetAllOrderDetails();
+            var orders = GetAllOrders();
+
+            var report = orders
+                .GroupJoin(details,
+                    o => o.OrderID,
+                    d => d.OrderID,
+                    (o, orderDetails) => new
+                    {
+                        o.OrderDate,
+                        Revenue = orderDetails.Sum(d => d.UnitPrice * d.Quantity * (1 - d.Discount))
+                    })
+                .GroupBy(x => new { x.OrderDate.Year, x.OrderDate.Month })
+                .Select(g => new OrderReportModel
+                {
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    TotalOrders = g.Count(),
+                    TotalRevenue = g.Sum(x => x.Revenue)
+                })
+                .OrderByDescending(x => x.Year)
+                .ThenByDescending(x => x.Month)
+                .ToList();
+
+            return report;
+        }
     }
 }

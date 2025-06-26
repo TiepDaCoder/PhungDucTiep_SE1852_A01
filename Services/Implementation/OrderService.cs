@@ -43,5 +43,6 @@ namespace Services.Implementation
 
         public void DeleteOrderDetailsByOrderId(int orderId) =>
             _orderDetailRepository.DeleteDetailsByOrderId(orderId);
+        public List<OrderReportModel> GetReportByMonth() => _orderRepository.GetReportByMonth();
     }
 }

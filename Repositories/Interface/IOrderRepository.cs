@@ -9,5 +9,6 @@ namespace Repositories.Interface
         void Add(Order order);
         void Delete(int orderId);
         List<Order> Search(int? customerId, int? employeeId);
+        List<OrderReportModel> GetReportByMonth();
     }
 }

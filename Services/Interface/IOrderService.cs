@@ -14,5 +14,6 @@ namespace Services.Interface
         List<OrderDetail> GetDetailsByOrderId(int orderId);
         void AddOrderDetail(OrderDetail detail);
         void DeleteOrderDetailsByOrderId(int orderId);
+        List<OrderReportModel> GetReportByMonth();
     }
 }
