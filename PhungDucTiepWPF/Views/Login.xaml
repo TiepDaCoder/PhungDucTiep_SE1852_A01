@@ -1,4 +1,5 @@
-﻿<Window x:Class="PhungDucTiepWPF.Views.Login"
+﻿//Đây là ASSIGNMENT01 WPF+LINQ
+    <Window x:Class="PhungDucTiepWPF.Views.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Login" Height="300" Width="350">
